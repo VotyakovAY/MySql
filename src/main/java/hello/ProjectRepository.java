@@ -12,12 +12,12 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, L
 
     List<Project> findByName(@Param("name") String name);
 
-     @Query("select p.name from Project p, Customer c where c = p.customers and LOWER(c.firstname) " +
+     /*@Query("select p.name from Project p, Customer c where c = p.customers and LOWER(c.firstname) " +
             "LIKE lower(concat('%',:name, '%')) or LOWER(c.lastname) LIKE lower(concat('%',:name, '%'))")
      List<String> findProjectByCustomer (@Param("name") String name );
 
      @Query(" select c from Project p join p.customers c where LOWER(p.name) LIKE lower(concat('%',:name, '%'))")
-     List<Customer> findCustomerByProject (@Param("name") String name);
+     List<Customer> findCustomerByProject (@Param("name") String name);*/
 
 
 }
