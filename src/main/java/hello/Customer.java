@@ -13,23 +13,23 @@ public class Customer {
     @Column(name="id")
     private Long id;
     @Column(name="firstname")
-    private String firstname;
+    private String firstName;
     @Column(name="lastname")
-    private String lastname;
+    private String lastName;
 
 
     protected Customer() {}
 
-    public Customer(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     @Override
     public String toString() {
         return String.format(
                 "customer[id=%d, firstname='%s', lastname='%s']",
-                id, firstname, lastname);
+                id, firstName, lastName);
     }
 
 // end::sample[]
@@ -39,11 +39,11 @@ public class Customer {
 	}
 
 	public String getFirstName() {
-		return firstname;
+		return firstName;
 	}
 
 	public String getLastName() {
-		return lastname;
+		return lastName;
 	}
 }
 
