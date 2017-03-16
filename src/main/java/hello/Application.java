@@ -25,7 +25,7 @@ public class Application implements CommandLineRunner {
     public void run(String... args) {
 
         // save a couple of customers
-        customerRepo.save(new Customer("Jack", "Bauer"));
+        /*customerRepo.save(new Customer("Jack", "Bauer"));
         customerRepo.save(new Customer("Chloe", "O'Brian"));
         customerRepo.save(new Customer("Kim", "Bauer"));
         customerRepo.save(new Customer("David", "Palmer"));
@@ -51,12 +51,38 @@ public class Application implements CommandLineRunner {
         // fetch customers by last name
         log.info("Customer found with findByLastName('Bau'):");
         log.info("--------------------------------------------");
-        for (Customer bau : customerRepo.findByLastName( "Bau" )) {
+        for (Customer bau : customerRepo.findBylastname( "Bau" )) {
             log.info(bau.toString());
         }
-        log.info("");
+        log.info("");*/
 
-        projectRepo.save(new Project("subbotnik"));
+        Project proj = new Project();
+        proj.addCustomer(customerRepo.save(new Customer("Jack", "Bauer")));
+        proj.addCustomer(customerRepo.save(new Customer("Kim", "Bauer")));
+        proj.setName("subbotnik");
+        projectRepo.save(proj);
+
+        proj = new Project();
+        proj.addCustomer(customerRepo.save(new Customer("Jack", "Bauer")));
+        proj.addCustomer(customerRepo.save(new Customer("David", "Palmer")));
+        proj.setName("project1");
+        projectRepo.save(proj);
+
+
+        proj = new Project();
+        proj.addCustomer(customerRepo.save(new Customer("Michelle", "Dessler")));
+        proj.addCustomer(customerRepo.save(new Customer("David", "Palmer")));
+        proj.setName("project2");
+        projectRepo.save(proj);
+
+
+
+
+
+
+
+
+       /* projectRepo.save(new Project("subbotnik"));
         projectRepo.save(new Project("Project"));
         projectRepo.save(new Project("secondProject"));
         projectRepo.save(new Project("CreateDatabase"));
@@ -83,7 +109,7 @@ public class Application implements CommandLineRunner {
         for (Project subbotnik : projectRepo.findByName("subbotnik")) {
             log.info(subbotnik.toString());
         }
-        log.info("");
+        log.info("");*/
     }
 }
 

@@ -1,0 +1,5 @@
+select c.firstname, c.lastname from Project p, Customer c where c = p.customers and p.name like ('%', "Project", '%')
+
+select c.firstname, c.lastname from Project p, Customer c where c = p.customers and p.name="subbotnik"
+
+select p.name from Project p, Customer c where c = p.customers and c.lastname="Bauer"

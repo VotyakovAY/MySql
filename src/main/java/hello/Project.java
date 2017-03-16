@@ -1,17 +1,24 @@
 package hello;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
+@Table(name="project")
 public class Project {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="id")
     private Long id;
+    @Column(name="name")
     private String name;
+    @OneToMany
+    @JoinTable(name="projcust",
+                joinColumns = @JoinColumn(name="projid"),
+                inverseJoinColumns = @JoinColumn(name="custid"))
+    private List<Customer> customers = new ArrayList<>();
 
     protected Project() {}
 
@@ -22,7 +29,7 @@ public class Project {
     @Override
     public String toString() {
         return String.format(
-                "Project[id=%d, name='%s']",
+                "project[id=%d, name='%s']",
                 id, name);
     }
 
@@ -32,9 +39,15 @@ public class Project {
         return id;
     }
 
-    public String getFirstName() {
+    public String getName() {
         return name;
     }
+
+    public void setName(String name) { this.name = name; }
+
+    public void addCustomer(Customer customer) {
+        this.customers.add(customer);
+    };
 
 
 }

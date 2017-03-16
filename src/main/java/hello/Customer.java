@@ -1,32 +1,35 @@
 // tag::sample[]
 package hello;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="customer")
+
 public class Customer {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="id")
     private Long id;
-    private String firstName;
-    private String lastName;
+    @Column(name="firstname")
+    private String firstname;
+    @Column(name="lastname")
+    private String lastname;
+
 
     protected Customer() {}
 
-    public Customer(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Customer(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%d, firstName='%s', lastName='%s']",
-                id, firstName, lastName);
+                "customer[id=%d, firstname='%s', lastname='%s']",
+                id, firstname, lastname);
     }
 
 // end::sample[]
@@ -36,11 +39,11 @@ public class Customer {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return firstname;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastname;
 	}
 }
 
