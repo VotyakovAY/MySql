@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список сайтов</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<h2>Contact Listing</h2>
+<!-- add form -->
+<form name="test" method="" action="">
+    <input id="userid" type="text" size="20" value="">
+    <button id="delUser" class="btn btn-default" type="submit">Удалить</button>
+</form>
+
+<table class="data-cities-js table table-striped">
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+
+    </tr>
+</table>
+
+<button id="fetchCities" class="btn btn-default" type="submit">Показать список контактов</button>
+<br>
+<form name="test" method="post" action="">
+<input id="userid" type="text" size="20"><button id="delUser" class="btn btn-default" type="submit">Удалить</button>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $("#fetchCities").bind("click", function () {
+        $.ajax({
+                url: "/api/people",
+                type: "GET",
+                async: true,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa("user" + ":" + "password"));
+                }
+            }
+        ).done(function (data) {
+
+            $.each(data._embedded.people, function (i, people) {
+
+                $(".data-cities-js").append(
+                    "<tr><td>" + people.firstname + "</td>" +
+                    "<td>" + people.lastname + "</td></tr>");
+            })
+        }).fail(function( jqXHR, textStatus ) {
+            console.log( "Request failed: " + textStatus );
+        });
+    })
+    ;
+
+    $("#delUser").bind("click", function () {
+        $.ajax({
+            url:"localhost:8080/api/people"+"#userid",
+            type: "DELETE",
+            async: true,
+            beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + btoa("user" + ":" + "password"));
+                }
+            }
+        ).done(function (data) {
+        }).fail(function( jqXHR, textStatus ) {
+            console.log( "Request failed: " + textStatus );
+        });
+
+    })
+    ;
+</script>
+
+</body>
+</html>
