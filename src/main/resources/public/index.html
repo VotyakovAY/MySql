@@ -17,6 +17,7 @@
 
 <table class="data-cities-js table table-striped">
     <tr>
+        <th>id</th>
         <th>Имя</th>
         <th>Фамилия</th>
 
@@ -42,7 +43,8 @@
             $.each(data._embedded.people, function (i, people) {
 
                 $(".data-cities-js").append(
-                    "<tr><td>" + people.firstname + "</td>" +
+                    "<tr><td>" + people.id + "</td>"+
+                    "<td>" + people.firstname + "</td>" +
                     "<td>" + people.lastname + "</td></tr>");
             })
         }).fail(function( jqXHR, textStatus ) {
