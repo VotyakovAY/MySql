@@ -1,0 +1,83 @@
+import groovy.json.*
+
+urlString = "http://172.27.5.26:8080"
+people = "/api/people"
+project = "/project"
+auth = "user:password".bytes.encodeBase64().toString();
+
+class Customer {
+    String firstName;
+    String lastName;
+    String state;
+    public Customer(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+}
+
+def createCustomer(firstName, lastName) {
+    def url = new URL(urlString + people)
+    def connection = url.openConnection()
+
+    c = new Customer(firstName, lastName);
+    connection.setRequestMethod("POST");
+    connection.doOutput = true;
+    connection.setRequestProperty("Authorization", "Basic " + auth);
+    connection.setRequestProperty("Content-Type", "application/json");
+    def writer = new OutputStreamWriter(connection.outputStream);
+    writer.write(new JsonBuilder( c ).toPrettyString());
+    writer.flush();
+    writer.close();
+    connection.connect();
+    def responseText = connection.content.text;
+    println responseText;
+}
+
+def updateCustomer(firstName, lastName) {
+    def url = new URL(urlString + people + "/" + id)
+    def connection = url.openConnection()
+
+    c = new Customer(firstName, lastName);
+    connection.setRequestMethod("PUT");
+    connection.doOutput = true;
+    connection.setRequestProperty("Authorization", "Basic " + auth);
+    connection.setRequestProperty("Content-Type", "application/json");
+    def writer = new OutputStreamWriter(connection.outputStream);
+    writer.write(new JsonBuilder( c ).toPrettyString());
+    writer.flush();
+    writer.close();
+    connection.connect();
+    def responseText = connection.content.text;
+    println responseText;
+}
+
+def deleteCustomer(id) {
+    def url = new URL(urlString + people + "/" + id)
+    def connection = url.openConnection()
+// Customer = new Customer(name, country, map, state);
+    connection.setRequestMethod("DELETE");
+    connection.doOutput = true;
+    connection.setRequestProperty("Authorization", "Basic " + auth);
+    connection.connect();
+    def responseText = connection.content.text;
+    println responseText;
+}
+
+def getCustomer(id) {
+    def url = new URL(urlString + people + "/" + id)
+    def connection = url.openConnection()
+    connection.setRequestMethod("GET");
+    connection.doOutput = true;
+    connection.setRequestProperty("Authorization", "Basic " + auth);
+    connection.connect();
+    //def responseText = connection.content.text;
+    def jsonSlurper = new JsonSlurper()
+    return jsonSlurper.parseText(connection.content.text)
+}
+
+
+//createCity("aaa1", "bbb1", "ccc1", "ddd1");
+//updateCity(1, "aaatyut1", "bmkjhkjhbb1", "ccc1", "ddd1");
+//deleteCity(1);
+def c = getCustomer(5);
+println "iD=" + c._links.self.href + " firstName=" + c.firstName + " lastName=" + c.lastName;
