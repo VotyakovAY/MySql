@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import persistenceDemo.springBoot.domain.Account;
-import persistenceDemo.springBoot.service.AccountRepository;
 
 @Configuration
 class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
@@ -30,10 +28,17 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
             // TODO @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                Account account = accountRepository.findByUsername(username);
+                Account account = accountRepository.findByUserName(username);
                 if(account != null) {
-                    return new User(account.getUsername(), account.getPassword(), true, true, true, true,
-                            AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER, ROLE_ADMIN"));
+                    return new User(account.getUserName(),
+                            account.getPassword(),
+                            account.isEnabled(),
+                            account.isAccountNonExpired(),
+                            account.isCredentialsNonExpired(),
+                            account.isAccountNonLocked(),
+                            AuthorityUtils.commaSeparatedStringToAuthorityList(account.getRoles())
+                    );
+
                 } else {
                     throw new UsernameNotFoundException("could not find the user '"
                             + username + "'");

@@ -43,8 +43,7 @@
             $.each(data._embedded.people, function (i, people) {
 
                 $(".data-cities-js").append(
-                    "<tr><td>" + people.id + "</td>"+
-                    "<td>" + people.firstname + "</td>" +
+                    "<tr><td>" + people.firstname + "</td>" +
                     "<td>" + people.lastname + "</td></tr>");
             })
         }).fail(function( jqXHR, textStatus ) {
@@ -55,7 +54,7 @@
 
     $("#delUser").bind("click", function () {
         $.ajax({
-            url:"localhost:8080/api/people/"+"#userid",
+            url:"/api/people/"+"#userid",
             type: "DELETE",
             async: true,
             beforeSend: function (xhr) {

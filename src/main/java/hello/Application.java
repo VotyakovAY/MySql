@@ -17,6 +17,9 @@ public class Application implements CommandLineRunner {
     private ProjectRepository projectRepo;
     @Autowired
     private CustomerRepository customerRepo;
+    @Autowired
+    private AccountRepository accountRepo;
+
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
@@ -65,14 +68,14 @@ public class Application implements CommandLineRunner {
         proj = new Project();
         proj.addCustomer(customerRepo.save(new Customer("Jack", "Bauer")));
         proj.addCustomer(customerRepo.save(new Customer("David", "Palmer")));
-        proj.setName("project1");
+        proj.setName("project10001");
         projectRepo.save(proj);
 
 
         proj = new Project();
         proj.addCustomer(customerRepo.save(new Customer("Michelle", "Dessler")));
         proj.addCustomer(customerRepo.save(new Customer("David", "Palmer")));
-        proj.setName("project2");
+        proj.setName("project7");
         projectRepo.save(proj);
 
 
@@ -82,34 +85,10 @@ public class Application implements CommandLineRunner {
 
 
 
-       /* projectRepo.save(new Project("subbotnik"));
-        projectRepo.save(new Project("Project"));
-        projectRepo.save(new Project("secondProject"));
-        projectRepo.save(new Project("CreateDatabase"));
-        projectRepo.save(new Project("CreateApplication"));
+        accountRepo.save(new Account(10L,"myuser", "user", true, true, true,true, "ROLE_USER"));
+        accountRepo.save(new Account(20L,"myadmin", "admin", true, true, true,true, "ROLE_ADMIN"));
 
-        // fetch all customers
-        log.info("Projects found with findAll():");
-        log.info("-------------------------------");
-        for (Project project : projectRepo.findAll()) {
-            log.info(project.toString());
-        }
-        log.info("");
 
-        // fetch an individual customer by ID
-        Project project = projectRepo.findOne(1L);
-        log.info("Project found with findOne(1L):");
-        log.info("--------------------------------");
-        log.info(project.toString());
-        log.info("");
-
-        // fetch customers by last name
-        log.info("Project found with findByName('subbotnik'):");
-        log.info("--------------------------------------------");
-        for (Project subbotnik : projectRepo.findByName("subbotnik")) {
-            log.info(subbotnik.toString());
-        }
-        log.info("");*/
     }
 }
 
