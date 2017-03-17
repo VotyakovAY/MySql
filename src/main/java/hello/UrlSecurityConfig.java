@@ -15,16 +15,16 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .httpBasic().and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/people").hasRole("USER")
-		.antMatchers(HttpMethod.GET, "/project").hasRole("USER")
-		.antMatchers(HttpMethod.POST, "/people").hasRole("ADMIN")
-		.antMatchers(HttpMethod.POST, "/project").hasRole("ADMIN")
-		.antMatchers(HttpMethod.PUT, "/people").hasRole("ADMIN")
-		.antMatchers(HttpMethod.PUT, "/project").hasRole("ADMIN")
-		.antMatchers(HttpMethod.GET, "/people").hasRole("USER")
-		.antMatchers(HttpMethod.GET, "/project").hasRole("ADMIN").and()
-                .csrf().disable();
+        .httpBasic().and()
+        .authorizeRequests()
+        .antMatchers(HttpMethod.GET, "/api/people").hasRole("USER")
+		.antMatchers(HttpMethod.GET, "/api/project").hasRole("USER")
+		.antMatchers(HttpMethod.POST, "/api/people").hasRole("ADMIN")
+		.antMatchers(HttpMethod.POST, "/api/project").hasRole("ADMIN")
+		.antMatchers(HttpMethod.PUT, "/api/people").hasRole("ADMIN")
+		.antMatchers(HttpMethod.PUT, "/api/project").hasRole("ADMIN")
+		.antMatchers(HttpMethod.DELETE, "/api/people").hasRole("USER")
+		.antMatchers(HttpMethod.DELETE, "/api/project").hasRole("ADMIN").and()
+        .csrf().disable();
     }
 }
